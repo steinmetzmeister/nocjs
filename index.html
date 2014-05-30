@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            margin: 0px;
+            background-color: #fff;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="640" height="270"></canvas>
+
+<script src="./Vector2.js"></script>
+<script src="./three.min.js"></script>
+<script>
+var canvas = document.getElementById('canvas');
+var context = canvas.getContext('2d');
+
+var mover = new Mover();
+mover.display();
+</script>
+
+</body>
+</html>
