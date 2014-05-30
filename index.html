@@ -5,9 +5,14 @@
     <meta charset="utf-8">
     <style>
         body {
-            margin: 0px;
-            background-color: #fff;
-            overflow: hidden;
+            margin: 16px;
+            background-color: #333;
+        }
+
+        #canvas {
+            background-color: #FFF;
+            display: block;
+            margin: 0px auto;
         }
     </style>
 </head>
@@ -15,14 +20,35 @@
 
 <canvas id="canvas" width="640" height="270"></canvas>
 
+<script src="./Util.js"></script>
 <script src="./Vector2.js"></script>
+<script src="./Mover.js"></script>
+
 <script src="./three.min.js"></script>
 <script>
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 
+var width = canvas.width;
+var height = canvas.height;
+
 var mover = new Mover();
-mover.display();
+
+function animate()
+{
+    requestAnimationFrame(animate);
+    render();
+}
+
+function render()
+{
+    context.clearRect(0, 0, width, height);
+
+    mover.moveRandom();
+    mover.display();
+}
+
+animate();
 </script>
 
 </body>
