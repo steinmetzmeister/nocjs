@@ -11,6 +11,20 @@ Vector2.sub = function(v, u) {
     return new Vector2(v.x - u.x, v.y - u.y);
 }
 
+Vector2.div = function(v, n) {
+    return new Vector2(v.x / n, v.y / n);
+}
+
+Vector2.copy = function(v) {
+    return new Vector2(v.x, v.y);
+}
+
+Vector2.random = function() {
+    var v = new Vector2(Math.random(), Math.random());
+    v.normalize()
+    return v;
+}
+
 Vector2.prototype = {
     add: function(v) {
         this.x += v.x;
