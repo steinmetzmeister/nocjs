@@ -26,6 +26,10 @@ Vector2.random = function() {
 }
 
 Vector2.prototype = {
+    get: function() {
+        return new Vector2(this.x, this.y);
+    },
+
     add: function(v) {
         this.x += v.x;
         this.y += v.y;

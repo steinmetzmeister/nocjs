@@ -5,17 +5,27 @@ var Mover = function() {
     this.velocity = new Vector2(0, 0);
     this.accel = new Vector2(0, 0);
 
-    this.mass = Util.randomInt(1, 5);
+    this.mass = Util.randomInt(5, 25);
 
-    this.radius = this.mass * 5;
+    this.radius = this.mass;
     this.color = Util.randomColor();
 
     this.t = 0;
 }
 Mover.prototype = {
     update: function() {
+        var friction = Vector2.copy(this.velocity);
+        friction.multi(-1);
+        friction.normalize();
+        friction.multi(0.4);
+
+        // this.applyForce(friction);
+
         if (mouseDown)
-            this.applyForce(new Vector2(-1, -1));
+        {
+            this.drag({c: 0.8})
+            // this.applyForce(new Vector2(-1, -4));
+        }
 
         this.applyGravity(Vector2.copy(gravity));
 
@@ -70,6 +80,18 @@ Mover.prototype = {
     applyGravity: function(force) {
         force.multi(this.mass);
         this.applyForce(force);
+    },
+
+    drag: function(type) {
+        var speed = this.velocity.mag();
+        var mag = type.c * (speed * speed);
+
+        var drag = this.velocity.get();
+        drag.multi(-1);
+        drag.normalize();
+        drag.multi(mag);
+
+        this.applyForce(drag);
     },
 
     moveRandom: function() {
