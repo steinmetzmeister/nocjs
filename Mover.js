@@ -14,6 +14,9 @@ var Mover = function() {
 }
 Mover.prototype = {
     update: function() {
+        if (this.isInside(liquid))
+            this.drag(liquid);
+
         var friction = Vector2.copy(this.velocity);
         friction.multi(-1);
         friction.normalize();
@@ -24,7 +27,7 @@ Mover.prototype = {
         if (mouseDown)
         {
             // this.drag({c: 0.8})
-            // this.applyForce(new Vector2(-1, -4));
+            this.applyForce(new Vector2(0, -4));
         }
 
         this.applyGravity(Vector2.copy(gravity));
@@ -105,5 +108,15 @@ Mover.prototype = {
         if (this.loc.y < 0) this.loc.y = 0;
 
         this.t += 0.01;
+    },
+
+    isInside: function(type) {
+        if (this.loc.x > type.x && this.loc.x < type.x + type.w)
+        {
+            if (this.loc.y > type.y && this.loc.y < type.y + type.h)
+                return true;
+        }
+
+        return false;
     }
 }

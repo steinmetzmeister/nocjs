@@ -18,11 +18,12 @@
 </head>
 <body>
 
-<canvas id="canvas" width="640" height="270"></canvas>
+<canvas id="canvas" width="640" height="640"></canvas>
 
 <script src="./Util.js"></script>
 <script src="./Vector2.js"></script>
 <script src="./Mover.js"></script>
+<script src="./Liquid.js"></script>
 
 <script src="./perlin.js"></script>
 
@@ -38,8 +39,10 @@ var ctx = canvas.getContext('2d');
 var width = canvas.width;
 var height = canvas.height;
 
+var liquid = new Liquid(50, 50, 550, 50, 1);
+
 var movers = [];
-for (var i = 0; i < 4; i++)
+for (var i = 0; i < 50; i++)
 {
     movers.push(new Mover());
 }
@@ -53,6 +56,8 @@ function animate()
 function render()
 {
     ctx.clearRect(0, 0, width, height);
+
+    liquid.display();
 
     // mover.moveRandom();
 
