@@ -19,11 +19,11 @@ Mover.prototype = {
         friction.normalize();
         friction.multi(0.4);
 
-        // this.applyForce(friction);
+        this.applyForce(friction);
 
         if (mouseDown)
         {
-            this.drag({c: 0.8})
+            // this.drag({c: 0.8})
             // this.applyForce(new Vector2(-1, -4));
         }
 
@@ -31,6 +31,10 @@ Mover.prototype = {
 
         this.velocity.add(this.accel);
         this.velocity.limit(10);
+
+        this.loc.add(this.velocity);
+
+        this.accel.multi(0);
 
         if (this.loc.x - this.radius < 0)
         {
@@ -55,10 +59,6 @@ Mover.prototype = {
             this.velocity.y = this.velocity.y * -1;
             this.loc.y = height - this.radius;
         }
-
-        this.loc.add(this.velocity);
-
-        this.accel.multi(0);
     },
 
     display: function() {
