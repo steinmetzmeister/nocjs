@@ -1,21 +1,31 @@
-var gravity = new Vector2(0, 0.05);
+var gravity = new Vector2(0, 0.08);
 
 var Mover = function() {
-    this.loc = new Vector2(Util.randomInt(0, width), height / 4);// Util.randomInt(0, height));
+    // for perlin noise
+    this.t = 0;
+
+    this.loc = new Vector2(Util.randomInt(0, width), height / 4);
     this.velocity = new Vector2(0, 0);
     this.accel = new Vector2(0, 0);
 
     this.mass = Util.randomInt(5, 25);
-
     this.radius = this.mass;
-    this.color = Util.randomColor();
 
-    this.t = 0;
+    this.color = Util.randomColor();
 }
 Mover.prototype = {
     update: function() {
+        
+
         if (this.isInside(liquid))
-            this.drag(liquid);
+            this.applyDrag(liquid);
+
+        if (mouseDown)
+        {
+            var planetForce = planet.attract(this);
+            this.applyForce(planetForce);
+            // this.applyForce(new Vector2(0, -5));
+        }
 
         var friction = Vector2.copy(this.velocity);
         friction.multi(-1);
@@ -24,24 +34,19 @@ Mover.prototype = {
 
         // this.applyForce(friction);
 
-        if (mouseDown)
-        {
-            // this.drag({c: 0.8})
-            this.applyForce(new Vector2(0, -5));
-        }
-
         this.applyGravity(Vector2.copy(gravity));
 
-        var planetForce = planet.attract(this);
-        this.applyForce(planetForce);
-
         this.velocity.add(this.accel);
-        this.velocity.limit(10);
 
+        this.velocity.limit(10);
         this.loc.add(this.velocity);
 
         this.accel.multi(0);
 
+        this.checkEdges();
+    },
+
+    checkEdges: function() {
         if (this.loc.x - this.radius < 0)
         {
             this.velocity.x *= -1;
@@ -67,17 +72,6 @@ Mover.prototype = {
         }
     },
 
-    display: function() {
-        ctx.beginPath();
-        ctx.strokeStyle = '5px';
-        ctx.fillStyle = this.color;
-        ctx.arc(this.loc.x, this.loc.y, this.radius, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.lineWidth = 4;
-        ctx.stroke();
-        ctx.fill();
-    },
-
     applyForce: function(force) {
         var f = Vector2.div(force, this.mass);
         this.accel.add(f);
@@ -88,7 +82,7 @@ Mover.prototype = {
         this.applyForce(force);
     },
 
-    drag: function(type) {
+    applyDrag: function(type) {
         var speed = this.velocity.mag();
         var mag = type.c * (speed * speed);
 
@@ -98,6 +92,17 @@ Mover.prototype = {
         drag.multi(mag);
 
         this.applyForce(drag);
+    },
+
+    display: function() {
+        ctx.beginPath();
+        ctx.strokeStyle = '5px';
+        ctx.fillStyle = this.color;
+        ctx.arc(this.loc.x, this.loc.y, this.radius, 0, Math.PI * 2, true);
+        ctx.closePath();
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.fill();
     },
 
     moveRandom: function() {
@@ -113,13 +118,12 @@ Mover.prototype = {
         this.t += 0.01;
     },
 
-    isInside: function(type) {
-        if (this.loc.x > type.x && this.loc.x < type.x + type.w)
-        {
-            if (this.loc.y > type.y && this.loc.y < type.y + type.h)
+    isInside: function(obj) {
+        if (this.loc.x > obj.x && this.loc.x < obj.x + obj.w
+            && this.loc.y > obj.y && this.loc.y < obj.y + obj.h) {
                 return true;
         }
-
-        return false;
+        else
+            return false;
     }
 }

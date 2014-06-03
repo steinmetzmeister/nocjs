@@ -1,7 +1,7 @@
-var Attractor = function(_x, _y, _m) {
-    this.loc = new Vector2(_x, _y);
-    this.mass = _m;
-    this.radius = _m;
+var Attractor = function(x, y, mass) {
+    this.loc = new Vector2(x, y);
+    this.mass = mass;
+    this.radius = mass / 2;
 }
 Attractor.prototype = {
     attract: function(obj) {
@@ -11,6 +11,8 @@ Attractor.prototype = {
         force.normalize();
 
         var strength = (this.mass * obj.mass) / (dist * dist);
+
+        // clamp
         if (strength < 2.5) strength = 2.5;
         if (strength > 25) strength = 25;
 
@@ -21,6 +23,9 @@ Attractor.prototype = {
 
     display: function() {
         ctx.fillStyle = 'red';
-        ctx.fillRect(this.loc.x, this.loc.y, this.radius * 2, this.radius * 2);
+        ctx.fillRect(
+            this.loc.x - this.radius / 2,
+            this.loc.y - this.radius / 2,
+            this.radius, this.radius);
     }
 }
