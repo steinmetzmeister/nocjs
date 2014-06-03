@@ -11,6 +11,10 @@ Vector2.sub = function(v, u) {
     return new Vector2(v.x - u.x, v.y - u.y);
 }
 
+Vector2.multi = function(v, n) {
+    return new Vector2(v.x * n, v.y * n);
+}
+
 Vector2.div = function(v, n) {
     return new Vector2(v.x / n, v.y / n);
 }

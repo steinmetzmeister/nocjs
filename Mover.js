@@ -22,13 +22,16 @@ Mover.prototype = {
         friction.normalize();
         friction.multi(0.4);
 
-        this.applyForce(friction);
+        // this.applyForce(friction);
 
         if (mouseDown)
         {
             // this.drag({c: 0.8})
-            this.applyForce(new Vector2(0, -4));
+            this.applyForce(new Vector2(0, -5));
         }
+
+        var planetForce = planet.attract(this);
+        this.applyForce(planetForce);
 
         this.applyGravity(Vector2.copy(gravity));
 
