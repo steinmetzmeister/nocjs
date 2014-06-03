@@ -1,4 +1,4 @@
-var gravity = new Vector2(0, 0.1);
+var gravity = new Vector2(0, 0.05);
 
 var Mover = function() {
     this.loc = new Vector2(Util.randomInt(0, width), height / 4);// Util.randomInt(0, height));
@@ -30,10 +30,10 @@ Mover.prototype = {
             this.applyForce(new Vector2(0, -5));
         }
 
+        this.applyGravity(Vector2.copy(gravity));
+
         var planetForce = planet.attract(this);
         this.applyForce(planetForce);
-
-        this.applyGravity(Vector2.copy(gravity));
 
         this.velocity.add(this.accel);
         this.velocity.limit(10);

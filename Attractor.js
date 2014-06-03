@@ -11,14 +11,16 @@ Attractor.prototype = {
         force.normalize();
 
         var strength = (this.mass * obj.mass) / (dist * dist);
-        if (strength < 5) strength = 5;
+        if (strength < 2.5) strength = 2.5;
         if (strength > 25) strength = 25;
 
-        return Vector2.multi(force, strength);
+        force.multi(strength);
+
+        return force;
     },
 
     display: function() {
         ctx.fillStyle = 'red';
-        ctx.fillRect(this.x, this.y, this.radius * 2, this.radius * 2);
+        ctx.fillRect(this.loc.x, this.loc.y, this.radius * 2, this.radius * 2);
     }
 }
