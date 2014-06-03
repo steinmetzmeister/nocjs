@@ -34,7 +34,7 @@ Mover.prototype = {
 
         // this.applyForce(friction);
 
-        this.applyGravity(Vector2.copy(gravity));
+        // this.applyGravity(Vector2.copy(gravity));
 
         this.velocity.add(this.accel);
 

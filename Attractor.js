@@ -10,12 +10,13 @@ Attractor.prototype = {
 
         force.normalize();
 
+        if (dist < 5) dist = 5;
+        if (dist > 25) dist = 25;
+
         var strength = (this.mass * obj.mass) / (dist * dist);
 
-        // clamp
-        if (strength < 2.5) strength = 2.5;
-        if (strength > 25) strength = 25;
-
+        if (strength > 50) strength = 50;
+        
         force.multi(strength);
 
         return force;
