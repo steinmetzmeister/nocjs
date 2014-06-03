@@ -41,7 +41,12 @@ var width = canvas.width;
 var height = canvas.height;
 
 var liquid = new Liquid(50, 50, 550, 50, 1);
-var planet = new Attractor(320, 300, 200);
+
+var planets = [
+    new Attractor(320, 300, 175),
+    new Attractor(520, 450, 225),
+    new Attractor(150, 150, 225)
+];
 
 var movers = [];
 for (var i = 0; i < 50; i++)
@@ -57,10 +62,12 @@ function animate()
 
 function render()
 {
-    ctx.clearRect(0, 0, width, height);
+    // ctx.clearRect(0, 0, width, height);
 
-    planet.display();
-    liquid.display();
+    for (var j = 0; j < planets.length; j++)
+        planets[j].display();
+
+    // liquid.display();
 
     // mover.moveRandom();
 

@@ -20,12 +20,16 @@ Mover.prototype = {
         if (this.isInside(liquid))
             this.applyDrag(liquid);
 
-        if (mouseDown)
-        {
-            var planetForce = planet.attract(this);
-            this.applyForce(planetForce);
+        // if (mouseDown)
+        // {
+            for (var i = 0; i < planets.length; i++)
+            {
+                var planetForce = planets[i].attract(this);
+                this.applyForce(planetForce);
+            }
+
             // this.applyForce(new Vector2(0, -5));
-        }
+        // }
 
         var friction = Vector2.copy(this.velocity);
         friction.multi(-1);
@@ -43,7 +47,7 @@ Mover.prototype = {
 
         this.accel.multi(0);
 
-        this.checkEdges();
+        // this.checkEdges();
     },
 
     checkEdges: function() {

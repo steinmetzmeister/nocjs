@@ -11,7 +11,7 @@ Attractor.prototype = {
         force.normalize();
 
         if (dist < 5) dist = 5;
-        if (dist > 25) dist = 25;
+        if (dist > 50) dist = 50;
 
         var strength = (this.mass * obj.mass) / (dist * dist);
 
