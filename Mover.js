@@ -25,7 +25,7 @@ Mover.prototype = {
         if (this.aVelocity < -1) this.aVeloctiy = -1;
         if (this.aVelocity > 1) this.aVelocity = 1;
 
-        this.angle += this.aVelocity;
+        // this.angle += this.aVelocity;
 
         // if (this.isInside(liquid))
         //    this.applyDrag(liquid);
@@ -114,14 +114,18 @@ Mover.prototype = {
         ctx.save();
         ctx.beginPath();
         ctx.strokeStyle = '5px';
+        
         ctx.fillStyle = this.color;
 
         // ctx.arc(this.loc.x, this.loc.y, this.radius, 0, Math.PI * 2, true);
         // ctx.closePath();
 
-        ctx.translate(this.loc.x + this.mass / 2, this.loc.y + this.mass / 2);
-        ctx.rotate(this.angle * Math.PI / 180);
-        ctx.fillRect(this.mass / 2, this.mass / 2, this.mass, this.mass);
+        ctx.translate(this.loc.x, this.loc.y);
+
+        var radians = Math.atan2(this.velocity.y, this.velocity.x);
+
+        ctx.rotate(radians);
+        ctx.fillRect(this.mass / -2, this.mass / -4, this.mass, this.mass / 2);
 
         ctx.lineWidth = 4;
         ctx.stroke();
