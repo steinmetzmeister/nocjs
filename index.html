@@ -40,16 +40,21 @@ var ctx = canvas.getContext('2d');
 var width = canvas.width;
 var height = canvas.height;
 
+ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+ctx.fillRect(0, 0, width, height);
+
 var liquid = new Liquid(50, 50, 550, 50, 1);
 
 var planets = [
-    new Attractor(320, 300, 175),
-    new Attractor(520, 450, 225),
-    new Attractor(150, 150, 225)
+    // new Attractor(320, 300, 175),
+    new Attractor(100, 100, 100),
+    new Attractor(540, 100, 100),
+    new Attractor(540, 540, 100),
+    new Attractor(100, 540, 100)
 ];
 
 var movers = [];
-for (var i = 0; i < 50; i++)
+for (var i = 0; i < 1; i++)
 {
     movers.push(new Mover());
 }
@@ -63,9 +68,11 @@ function animate()
 function render()
 {
     // ctx.clearRect(0, 0, width, height);
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, width, height);
 
-    for (var j = 0; j < planets.length; j++)
-        planets[j].display();
+    // for (var j = 0; j < planets.length; j++)
+    // planets[j].display();
 
     // liquid.display();
 

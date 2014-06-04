@@ -1,24 +1,34 @@
-var gravity = new Vector2(0, 0.08);
+var gravity = new Vector2(0, 0.015);
 
 var Mover = function() {
     // for perlin noise
     this.t = 0;
 
-    this.loc = new Vector2(Util.randomInt(0, width), height / 4);
+    this.mass = Util.randomInt(5, 50);
+
+    this.loc = new Vector2(Util.randomInt(0, width), Util.randomInt(0, height));
     this.velocity = new Vector2(0, 0);
     this.accel = new Vector2(0, 0);
-
-    this.mass = Util.randomInt(5, 25);
+    
     this.radius = this.mass;
 
     this.color = Util.randomColor();
+
+    this.angle = 0;
+    this.aVelocity = Util.random(-1, 1);
 }
 Mover.prototype = {
     update: function() {
-        
+        // this.aVelocity = Util.random(-1, 1);
 
-        if (this.isInside(liquid))
-            this.applyDrag(liquid);
+        // this.aVelocity += this.t;
+        if (this.aVelocity < -1) this.aVeloctiy = -1;
+        if (this.aVelocity > 1) this.aVelocity = 1;
+
+        this.angle += this.aVelocity;
+
+        // if (this.isInside(liquid))
+        //    this.applyDrag(liquid);
 
         // if (mouseDown)
         // {
@@ -48,6 +58,8 @@ Mover.prototype = {
         this.accel.multi(0);
 
         // this.checkEdges();
+
+        this.t += 0.01;
     },
 
     checkEdges: function() {
@@ -99,14 +111,22 @@ Mover.prototype = {
     },
 
     display: function() {
+        ctx.save();
         ctx.beginPath();
         ctx.strokeStyle = '5px';
         ctx.fillStyle = this.color;
-        ctx.arc(this.loc.x, this.loc.y, this.radius, 0, Math.PI * 2, true);
-        ctx.closePath();
+
+        // ctx.arc(this.loc.x, this.loc.y, this.radius, 0, Math.PI * 2, true);
+        // ctx.closePath();
+
+        ctx.translate(this.loc.x + this.mass / 2, this.loc.y + this.mass / 2);
+        ctx.rotate(this.angle * Math.PI / 180);
+        ctx.fillRect(this.mass / 2, this.mass / 2, this.mass, this.mass);
+
         ctx.lineWidth = 4;
         ctx.stroke();
         ctx.fill();
+        ctx.restore();
     },
 
     moveRandom: function() {
