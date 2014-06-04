@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+        body {
+            margin: 16px;
+            background-color: #333;
+        }
+
+        #canvas {
+            background-color: #FFF;
+            display: block;
+            margin: 0px auto;
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="canvas" width="640" height="640"></canvas>
+
+<script src="./Util.js"></script>
+<script src="./Vector2.js"></script>
+<script src="./Mover.js"></script>
+<script src="./Liquid.js"></script>
+<script src="./Attractor.js"></script>
+<script src="./Osc.js"></script>
+
+<script src="./perlin.js"></script>
+
+<script src="./three.min.js"></script>
+<script>
+var mouseDown = 0;
+document.body.onmousedown = function() {  ++mouseDown; }
+document.body.onmouseup = function() { --mouseDown; }
+
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+var width = canvas.width;
+var height = canvas.height;
+
+ctx.fillStyle = "rgba(0, 0, 0, 1)";
+ctx.fillRect(0, 0, width, height);
+
+var oscs = [];
+for (var j = 0; j < 150; j++)
+    oscs.push(new Osc());
+
+function animate()
+{
+    requestAnimationFrame(animate);
+    render();
+}
+
+function render()
+{
+    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillRect(0, 0, width, height);
+
+    for (var i = 0; i < oscs.length; i++)
+    {
+        oscs[i].oscillate();
+        oscs[i].display();
+    }
+}
+
+animate();
+</script>
+
+</body>
+</html>

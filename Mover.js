@@ -16,6 +16,8 @@ var Mover = function() {
 
     this.angle = 0;
     this.aVelocity = Util.random(-1, 1);
+
+    this.amp = 0.5;
 }
 Mover.prototype = {
     update: function() {
@@ -52,7 +54,7 @@ Mover.prototype = {
 
         this.velocity.add(this.accel);
 
-        this.velocity.limit(10);
+        this.velocity.limit(20);
         this.loc.add(this.velocity);
 
         this.accel.multi(0);
