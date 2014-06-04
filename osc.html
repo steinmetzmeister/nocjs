@@ -19,6 +19,7 @@
 <body>
 
 <canvas id="canvas" width="640" height="640"></canvas>
+<button onclick="save();">Save</button>
 
 <script src="./Util.js"></script>
 <script src="./Vector2.js"></script>
@@ -31,6 +32,12 @@
 
 <script src="./three.min.js"></script>
 <script>
+function save()
+{
+    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    window.location.href = image;
+}
+
 var mouseDown = 0;
 document.body.onmousedown = function() {  ++mouseDown; }
 document.body.onmouseup = function() { --mouseDown; }
@@ -45,7 +52,7 @@ ctx.fillStyle = "rgba(0, 0, 0, 1)";
 ctx.fillRect(0, 0, width, height);
 
 var oscs = [];
-for (var j = 0; j < 150; j++)
+for (var j = 0; j < 2; j++)
     oscs.push(new Osc());
 
 function animate()
@@ -57,7 +64,7 @@ function animate()
 function render()
 {
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    ctx.fillRect(0, 0, width, height);
+    // ctx.fillRect(0, 0, width, height);
 
     for (var i = 0; i < oscs.length; i++)
     {
