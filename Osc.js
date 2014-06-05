@@ -1,5 +1,9 @@
 var Osc = function(x, y) {
-    this.angle = new Vector2(0, 0);
+    // this.angle = new Vector2(0, 0);
+    this.startAngle = 0;
+    this.angle = 0;
+
+    this.aVelocity = Util.random(-0.01, 0.01);
     
     if (x && y)
     {
@@ -18,20 +22,39 @@ var Osc = function(x, y) {
 }
 Osc.prototype = {
     oscillate: function() {
-        this.angle.add(this.velocity);
+        // this.angle.add(this.velocity);
     },
 
     display: function() {
-        var x = Math.sin(this.angle.x) * this.amp.x;
-        var y = Math.sin(this.angle.y) * this.amp.y;
 
-        x += width / 2;
-        y += height / 2;
+        this.angle = this.startAngle;
+        this.startAngle += 0.02;
+
+        if (this.startAngle > Math.PI)
+            paused = true;
+
+        for (var x = 0; x < width; x += 1)
+        {
+            var y = map_range(Math.sin(this.angle), -1, 1, 0, height);
+
+            ctx.fillStyle = Util.randomColor(); // this.color;
+            ctx.fillRect(x, y, 1, 1);
+
+            this.angle += this.aVelocity;            
+        }
+        
+        // var x = Math.sin(this.angle.x) * this.amp.x;
+        
+
+        // x += width / 2;
+        // y += height / 2;
 
         ctx.beginPath();
-        ctx.arc(x, y, this.radius, 0, Math.PI * 2, true);
-        ctx.closePath();
-        ctx.fillStyle = this.color;
-        ctx.fill();
+        // ctx.arc(x, y, this.radius, 0, Math.PI * 2, true);
     }
+}
+
+function map_range(value, low1, high1, low2, high2)
+{
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }

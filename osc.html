@@ -20,6 +20,7 @@
 
 <canvas id="canvas" width="640" height="640"></canvas>
 <button onclick="save();">Save</button>
+<button onclick="pause();">Pause</button>
 
 <script src="./Util.js"></script>
 <script src="./Vector2.js"></script>
@@ -32,10 +33,17 @@
 
 <script src="./three.min.js"></script>
 <script>
+var paused = false;
+function pause()
+{
+    paused = !paused;
+}
+
 function save()
 {
-    var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+    var image = canvas.toDataURL("image/png");
     window.location.href = image;
+    // document.write('<img src="' + image + '"/>');
 }
 
 var mouseDown = 0;
@@ -52,7 +60,7 @@ ctx.fillStyle = "rgba(0, 0, 0, 1)";
 ctx.fillRect(0, 0, width, height);
 
 var oscs = [];
-for (var j = 0; j < 2; j++)
+for (var j = 0; j < 6; j++)
     oscs.push(new Osc());
 
 function animate()
@@ -63,8 +71,11 @@ function animate()
 
 function render()
 {
+    if (paused)
+        return;
+
     ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
-    // ctx.fillRect(0, 0, width, height);
+    ctx.fillRect(0, 0, width, height);
 
     for (var i = 0; i < oscs.length; i++)
     {
