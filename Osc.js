@@ -1,4 +1,6 @@
 var Osc = function(x, y) {
+    this.iter = Util.randomInt(1, 10);
+
     // this.angle = new Vector2(0, 0);
     this.startAngle = 0;
     this.angle = 0;
@@ -30,14 +32,14 @@ Osc.prototype = {
         this.angle = this.startAngle;
         this.startAngle += 0.02;
 
-        if (this.startAngle > Math.PI)
+        if (this.startAngle > Math.PI * 1.125)
             paused = true;
 
-        for (var x = 0; x < width; x += 1)
+        for (var x = 0; x < width; x += this.iter)
         {
             var y = map_range(Math.sin(this.angle), -1, 1, 0, height);
 
-            ctx.fillStyle = Util.randomColor(); // this.color;
+            ctx.fillStyle = this.color;
             ctx.fillRect(x, y, 1, 1);
 
             this.angle += this.aVelocity;            

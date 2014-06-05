@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<canvas id="canvas" width="640" height="640"></canvas>
+<canvas id="canvas" width="1280" height="1024"></canvas>
 <button onclick="save();">Save</button>
 <button onclick="pause();">Pause</button>
 
@@ -41,9 +41,8 @@ function pause()
 
 function save()
 {
-    var image = canvas.toDataURL("image/png");
-    window.location.href = image;
-    // document.write('<img src="' + image + '"/>');
+    var w = window.open('about:blank', '');
+    w.document.write("<img src='" + canvas.toDataURL("image/jpg") + "' />");
 }
 
 var mouseDown = 0;
@@ -60,7 +59,7 @@ ctx.fillStyle = "rgba(0, 0, 0, 1)";
 ctx.fillRect(0, 0, width, height);
 
 var oscs = [];
-for (var j = 0; j < 6; j++)
+for (var j = 0; j < 8; j++)
     oscs.push(new Osc());
 
 function animate()
