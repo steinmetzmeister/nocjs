@@ -13,12 +13,14 @@
             background-color: #FFF;
             display: block;
             margin: 0px auto;
+
+
         }
     </style>
 </head>
 <body>
 
-<canvas id="canvas" width="1280" height="1024"></canvas>
+<canvas id="canvas" width="1024" height="512"></canvas>
 <button onclick="save();">Save</button>
 <button onclick="pause();">Pause</button>
 
@@ -59,7 +61,7 @@ ctx.fillStyle = "rgba(0, 0, 0, 1)";
 ctx.fillRect(0, 0, width, height);
 
 var oscs = [];
-for (var j = 0; j < 8; j++)
+for (var j = 0; j < 5; j++)
     oscs.push(new Osc());
 
 function animate()
@@ -73,7 +75,7 @@ function render()
     if (paused)
         return;
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+    ctx.fillStyle = "rgba(0, 0, 0, 0.075)";
     ctx.fillRect(0, 0, width, height);
 
     for (var i = 0; i < oscs.length; i++)
