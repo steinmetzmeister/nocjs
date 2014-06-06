@@ -30,6 +30,7 @@
 <script src="./Liquid.js"></script>
 <script src="./Attractor.js"></script>
 <script src="./Osc.js"></script>
+<script src="./Pendulum.js"></script>
 
 <script src="./perlin.js"></script>
 
@@ -64,6 +65,8 @@ var oscs = [];
 for (var j = 0; j < 5; j++)
     oscs.push(new Osc());
 
+var pen = new Pendulum();
+
 function animate()
 {
     requestAnimationFrame(animate);
@@ -81,8 +84,11 @@ function render()
     for (var i = 0; i < oscs.length; i++)
     {
         oscs[i].oscillate();
-        oscs[i].display();
+        // oscs[i].display();
     }
+
+    pen.update();
+    pen.display();
 }
 
 animate();

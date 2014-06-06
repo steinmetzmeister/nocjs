@@ -69,7 +69,7 @@ Osc.prototype = {
             y += d / 2;
 
             if (x % Util.randomInt(0, 32) === 0)
-                y += Util.randomInt(2, 6)  * Util.randomInt(-1, 1);
+                y += Util.randomInt(2, 12)  * Util.randomInt(-1, 1);
 
             var r = (Math.random() < 0) ? -1 : 1;
             // y += Util.randomInt(-2, 2)  * r;
