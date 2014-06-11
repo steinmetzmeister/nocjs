@@ -1,12 +1,12 @@
-var gravity = new Vector2(0, 0.015);
+var gravity = new Vector2(0, 0.1);
 
 var Mover = function() {
     // for perlin noise
     this.t = 0;
 
-    this.mass = Util.randomInt(5, 50);
+    this.mass = Util.randomInt(5, 10);
 
-    this.loc = new Vector2(Util.randomInt(0, width), Util.randomInt(0, height));
+    this.loc = new Vector2(width / 2 + 100, 200); // new Vector2(Util.randomInt(0, width), Util.randomInt(0, height));
     this.velocity = new Vector2(0, 0);
     this.accel = new Vector2(0, 0);
     
@@ -24,8 +24,8 @@ Mover.prototype = {
         // this.aVelocity = Util.random(-1, 1);
 
         // this.aVelocity += this.t;
-        if (this.aVelocity < -1) this.aVeloctiy = -1;
-        if (this.aVelocity > 1) this.aVelocity = 1;
+        // if (this.aVelocity < -1) this.aVeloctiy = -1;
+        // if (this.aVelocity > 1) this.aVelocity = 1;
 
         // this.angle += this.aVelocity;
 
@@ -34,11 +34,11 @@ Mover.prototype = {
 
         // if (mouseDown)
         // {
-            for (var i = 0; i < planets.length; i++)
-            {
-                var planetForce = planets[i].attract(this);
-                this.applyForce(planetForce);
-            }
+            // for (var i = 0; i < planets.length; i++)
+            // {
+            //     var planetForce = planets[i].attract(this);
+            //     this.applyForce(planetForce);
+            // }
 
             // this.applyForce(new Vector2(0, -5));
         // }
@@ -46,9 +46,9 @@ Mover.prototype = {
         var friction = Vector2.copy(this.velocity);
         friction.multi(-1);
         friction.normalize();
-        friction.multi(0.4);
+        friction.multi(0.01);
 
-        // this.applyForce(friction);
+        this.applyForce(friction);
 
         // this.applyGravity(Vector2.copy(gravity));
 
@@ -119,15 +119,15 @@ Mover.prototype = {
         
         ctx.fillStyle = this.color;
 
-        // ctx.arc(this.loc.x, this.loc.y, this.radius, 0, Math.PI * 2, true);
-        // ctx.closePath();
+        ctx.arc(this.loc.x, this.loc.y, this.radius, 0, Math.PI * 2, true);
+        ctx.closePath();
 
         ctx.translate(this.loc.x, this.loc.y);
 
         var radians = Math.atan2(this.velocity.y, this.velocity.x);
 
         ctx.rotate(radians);
-        ctx.fillRect(this.mass / -2, this.mass / -4, this.mass, this.mass / 2);
+        // ctx.fillRect(this.mass / -2, this.mass / -4, this.mass, this.mass / 2);
 
         ctx.lineWidth = 4;
         ctx.stroke();

@@ -26,15 +26,20 @@ Pendulum.prototype = {
 }
 
 var Spring = function() {
+    this.anchor = new Vector2(width / 2, 0);
+    this.len = 200;
 
+    this.k = 0.1;
 }
 Spring.prototype = {
-    
-}
+    connect: function(bob) {
+        var force = Vector2.sub(bob.loc, this.anchor)
+        var diff = force.mag();
 
-var Bob = function() {
+        var stretch = diff - this.len;
+        force.normalize();
+        force.multi(-1 * this.k * stretch);
 
-}
-Bob.prototype = {
-
+        bob.applyForce(force);
+    }
 }

@@ -67,6 +67,9 @@ for (var j = 0; j < 5; j++)
 
 var pen = new Pendulum();
 
+var spring = new Spring();
+var bob = new Mover();
+
 function animate()
 {
     requestAnimationFrame(animate);
@@ -84,11 +87,17 @@ function render()
     for (var i = 0; i < oscs.length; i++)
     {
         oscs[i].oscillate();
-        // oscs[i].display();
+        oscs[i].display();
     }
 
     pen.update();
-    pen.display();
+    // pen.display();
+
+    bob.applyForce(new Vector2(0, 0.1));
+    
+    spring.connect(bob);
+    bob.update();
+    // bob.display();
 }
 
 animate();
